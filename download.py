@@ -17,19 +17,20 @@ import subprocess
 
 
 
-url = playlist_url
+url = 'playlist_url'
+client_id = 'your-client-id'
+client_secret = 'your-client-secret-key'
 
-auth_manager = SpotifyClientCredentials()
+working_dir = 'path/to/folder'
+folder_name = 'folder_name'
+genre = 'Genre'
+
+auth_manager = SpotifyClientCredentials(client_id, client_secret)
 sp = spotipy.Spotify(auth_manager=auth_manager)
 playlists = sp.playlist_items(url) 
 
 
 playlist_songs = playlists['items']
-
-
-working_dir = 'path/to/folder'
-folder_name = 'folder_name'
-genre = 'Genre'
 
 os.makedirs(f'{working_dir}/{folder_name}/albumart')
 

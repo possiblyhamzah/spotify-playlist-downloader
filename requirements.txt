@@ -1,7 +1,5 @@
-youtubesearchpython
+youtube-search-python
 spotipy
 requests
 eyed3
 mutagen
-shutil
-subprocess

@@ -114,11 +114,9 @@ def add_albumart(working_dir, folder_name, title):
     audio.add_picture(image)
     audio.save()
 
-
+# When downloading from MusicDL, some unnecessary files download as well. So we'll try to remove those by transferring
+# them to the albumart folder, and deleting the folder with all of its contents so only the songs remain.
 def clean_up(working_dir, folder_name):
-    # When downloading from MusicDL, some unnecessary files download as well. So we'll try to remove those by transferring
-    # them to the albumart folder, and deleting the folder with all of its contents so only the songs remain.
-
     # Get all the files that aren't audio files.
     non_flac_files = [x for x in os.listdir(
         f'{working_dir}/{folder_name}') if not x.endswith(".flac") and os.path.isfile(os.path.join(f'{working_dir}/{folder_name}', x))]

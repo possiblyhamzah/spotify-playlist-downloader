@@ -91,10 +91,12 @@ def download_albumart(working_dir, folder_name, song, title):
 # Add the metadata to the audio file.
 def add_metadata(working_dir, folder_name, title, genre, song, artist, album):
     audio = FLAC(f'{working_dir}/{folder_name}/{title}.flac')
-    audio['genre'] = genre
     audio['title'] = song
     audio['artist'] = artist
     audio['album'] = album
+
+    if genre:
+        audio['genre'] = genre
     audio.save()
 
 

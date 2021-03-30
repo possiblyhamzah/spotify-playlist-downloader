@@ -20,7 +20,7 @@ client_secret = 'abc123'
 
 working_dir = 'folder'
 folder_name = 'metal'
-genre = 'Metal
+genre = 'Metal'
 
 download(url, client_id, client_secret, working_dir, folder_name, genre)
 

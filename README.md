@@ -26,6 +26,7 @@ download(url, client_id, client_secret, working_dir, folder_name, genre)
 
 ```
 Note that the places I've written as 'abc123' above should instead be some alphanumeric string.
+
 4. Run download.py
 ```bash
 python3 download.py

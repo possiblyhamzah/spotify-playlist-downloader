@@ -83,14 +83,18 @@ def download_song(download_url, working_dir, folder_name):
 def download_albumart(working_dir, folder_name, song, title):
     response = requests.get(song['track']['album']['images'][0]['url'])
 
-    files = open(f"{working_dir}/{folder_name}/albumart/{title}.png", "wb")
+    # f"{working_dir}/{folder_name}/albumart/{title}.png", "wb")
+    files = open(os.path.join(working_dir, folder_name,
+                              'albumart', f'{title}.png'), "wb")
     files.write(response.content)
     files.close()
 
 
 # Add the metadata to the audio file.
 def add_metadata(working_dir, folder_name, title, genre, song, artist, album):
-    audio = FLAC(f'{working_dir}/{folder_name}/{title}.flac')
+    # audio = FLAC(f'{working_dir}/{folder_name}/{title}.flac')
+    # f'{working_dir}/{folder_name}/{title}.flac')
+    audio = FLAC(os.path.join(working_dir, folder_name, f'{title}.flac'))
     audio['title'] = song
     audio['artist'] = artist
     audio['album'] = album
@@ -102,7 +106,7 @@ def add_metadata(working_dir, folder_name, title, genre, song, artist, album):
 
 # Add the album art that we have previously downloaded to the audio file.
 def add_albumart(working_dir, folder_name, title):
-    audio = File(f'{working_dir}/{folder_name}/{title}.flac')
+    audio = File(os.path.join(working_dir, folder_name, f'{title}.flac'))
 
     image = Picture()
     image.type = 3
@@ -110,26 +114,28 @@ def add_albumart(working_dir, folder_name, title):
     mime = 'image/png'
     image.desc = 'front cover'
     # better than open(albumart, 'rb').read() ?
-    with open(f'{working_dir}/{folder_name}/albumart/{title}.png', 'rb') as f:
+    with open(os.path.join(working_dir, folder_name,
+                           'albumart', f'{title}.png'), 'rb') as f:
         image.data = f.read()
 
     audio.add_picture(image)
     audio.save()
+
 
 # When downloading from MusicDL, some unnecessary files download as well. So we'll try to remove those by transferring
 # them to the albumart folder, and deleting the folder with all of its contents so only the songs remain.
 def clean_up(working_dir, folder_name):
     # Get all the files that aren't audio files.
     non_flac_files = [x for x in os.listdir(
-        f'{working_dir}/{folder_name}') if not x.endswith(".flac") and os.path.isfile(os.path.join(f'{working_dir}/{folder_name}', x))]
+        os.path.join(working_dir, folder_name)) if not x.endswith(".flac") and os.path.isfile(os.path.join(working_dir, folder_name, x))]
 
     # Move them to the albumart folder.
     for f in non_flac_files:
-        os.rename(f'{working_dir}/{folder_name}/{f}',
-                  f'{working_dir}/{folder_name}/albumart/{f}')
+        os.rename(os.path.join(working_dir, folder_name, f),
+                  os.path.join(working_dir, folder_name, 'albumart', f))
 
     # Delete the albumart folder.
-    shutil.rmtree(f'{working_dir}/{folder_name}/albumart')
+    shutil.rmtree(os.path.join(working_dir, folder_name, 'albumart'))
 
 
 def download(url, client_id, client_secret, working_dir, folder_name, genre):
@@ -142,7 +148,8 @@ def download(url, client_id, client_secret, working_dir, folder_name, genre):
     playlist_songs = playlists['items']
 
     # Make the folder to store the album art images.
-    os.makedirs(f'{working_dir}/{folder_name}/albumart')
+    # os.makedirs(f'{working_dir}/{folder_name}/albumart')
+    os.makedirs(os.path.join(working_dir, folder_name, 'albumart'))
 
     # Iterate across all songs in the playlist.
     for i in playlist_songs:
@@ -183,8 +190,8 @@ def download(url, client_id, client_secret, working_dir, folder_name, genre):
         # Now that all the processes are done, we'll name the file with the song name and artist name that we have extracted from the spotify playlist.
         # Should any error occur, the song would have still been downloaded.
         try:
-            os.rename(f'{working_dir}/{folder_name}/{title}.flac',
-                      f'{working_dir}/{folder_name}/{artist} - {song}.flac')
+            os.rename(os.path.join(working_dir, folder_name, f'{title}.flac'),
+                      os.path.join(working_dir, folder_name, f'{artist} - {song}.flac'))
         except:
             # If a naming clash / some other error does occur, move on with the downloading of the next song.
             continue

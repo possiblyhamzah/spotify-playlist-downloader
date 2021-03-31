@@ -6,7 +6,7 @@ Downloads songs from a Spotify playlist, complete with album art and metadata.
 1. Clone the repository
 2. Open the terminal and run the following command to download the required libraries:
 ```bash
-python3 install -r requirements.txt.
+python3 install -r requirements.txt
 ```
 3. Open download.py, and add the playlist url, your spotify client ID and secret key (which you can obtain from here: https://developer.spotify.com/dashboard/ . Log in, make an app and get the spotify client ID and secret key), the directory where the songs should be installed, the name of the folder that the songs would be installed in (the folder will be created in inside the directory) and the genre of the songs (if any). download.py should look something like this:
 ```python

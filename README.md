@@ -31,4 +31,4 @@ Note that the places I've written as 'abc123' above should instead be some alpha
 ```bash
 python3 download.py
 ```
-You'll find the songs in a folder in the directory mentioned.
+You'll find the songs in a folder in the directory that was given by the user.

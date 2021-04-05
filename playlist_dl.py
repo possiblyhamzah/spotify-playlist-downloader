@@ -83,7 +83,6 @@ def download_song(download_url, working_dir, folder_name):
 def download_albumart(working_dir, folder_name, song, title):
     response = requests.get(song['track']['album']['images'][0]['url'])
 
-    # f"{working_dir}/{folder_name}/albumart/{title}.png", "wb")
     files = open(os.path.join(working_dir, folder_name,
                               'albumart', f'{title}.png'), "wb")
     files.write(response.content)
@@ -92,8 +91,6 @@ def download_albumart(working_dir, folder_name, song, title):
 
 # Add the metadata to the audio file.
 def add_metadata(working_dir, folder_name, title, genre, song, artist, album):
-    # audio = FLAC(f'{working_dir}/{folder_name}/{title}.flac')
-    # f'{working_dir}/{folder_name}/{title}.flac')
     audio = FLAC(os.path.join(working_dir, folder_name, f'{title}.flac'))
     audio['title'] = song
     audio['artist'] = artist
@@ -113,6 +110,7 @@ def add_albumart(working_dir, folder_name, title):
 
     mime = 'image/png'
     image.desc = 'front cover'
+    
     # better than open(albumart, 'rb').read() ?
     with open(os.path.join(working_dir, folder_name,
                            'albumart', f'{title}.png'), 'rb') as f:

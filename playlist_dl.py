@@ -21,9 +21,9 @@ from mutagen import File
 # 1. Videos with only the song name as the video title and and uploaded by the artist are given the first priority.
 #    These tend to be audio tracks, which is what we want.
 #    In this case, we insert the video title and url in the beginning of their respective lists and break from the loop to directly return these.
-# 2. Videos with the song name in the title, and containing 'audio' and not containing 'video' in the title are given the second priority.
+# 2. Videos with the song name in the title, and containing 'audio' and not containing 'video' or 'live' in the title are given the second priority.
 #    In this case, we insert the video title and url in the beginning of their respective lists and proceed with the next iteration.
-# 3. Videos with 'audio' or 'lyric' in the title, or the song name without 'video' is given the least priority.
+# 3. Videos with 'audio' or 'lyric' in the title, or the song name without 'video' or 'live' is given the least priority.
 #    In this case, we insert the video title and url in the end of their respective lists and proceed with the next iteration.
 # After going through the results, we return the best result i.e. the one at the beginning of the lists.
 def find_best_video(song, artist):
@@ -41,10 +41,10 @@ def find_best_video(song, artist):
             searches.insert(0, result['link'])
             titles.insert(0, title)
             break
-        elif title == f'{artist} - {song}' or (f'{artist} - {song}'.lower() in title.lower() and 'audio' in title.lower()) and 'video' not in title.lower():
+        elif title == f'{artist} - {song}' or (f'{artist} - {song}'.lower() in title.lower() and 'audio' in title.lower()) and 'video' not in title.lower() and 'live' not in title.lower():
             searches.insert(0, result['link'])
             titles.insert(0, title)
-        elif 'audio' in title.lower() or 'lyric' in title.lower() or (song in title and 'video' not in title.lower()):
+        elif 'audio' in title.lower() or 'lyric' in title.lower() or (song in title and 'video' not in title.lower() and 'live' not in title.lower()):
             searches.append(result['link'])
             titles.append(title)
 
@@ -110,7 +110,7 @@ def add_albumart(working_dir, folder_name, title):
 
     mime = 'image/png'
     image.desc = 'front cover'
-    
+
     # better than open(albumart, 'rb').read() ?
     with open(os.path.join(working_dir, folder_name,
                            'albumart', f'{title}.png'), 'rb') as f:

@@ -14,7 +14,7 @@ from mutagen.flac import Picture, FLAC
 from mutagen import File
 
 
-# Search youtube to download the song.
+# Search youtube to pick the best results for the song.
 # Downloading the first result that comes up isn't a great idea since it may be a different song with a similar name,
 # or it might be a music video which often have sounds that aren't a part of the song.
 # To tackle this, we go through the first 10 results and enter the relevant results with the following priorities:

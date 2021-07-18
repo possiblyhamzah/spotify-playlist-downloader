@@ -3,3 +3,4 @@ spotipy
 requests
 eyed3
 mutagen
+music-dl

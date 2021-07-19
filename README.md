@@ -32,3 +32,5 @@ python3 download.py
 You'll find the songs in a folder in the directory that was given by the user.
 
 The MusicDL.py file and the 'core' directory have been taken from https://github.com/gumob/music-dl.
+
+TODO: Download directly from youtube-dl and remove the music-dl dependency.

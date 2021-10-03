@@ -33,4 +33,7 @@ You'll find the songs in a folder in the directory that was given by the user.
 
 The MusicDL.py file and the 'core' directory have been taken from https://github.com/gumob/music-dl.
 
-TODO: Download directly from youtube-dl and remove the music-dl dependency.
+TODO:
+1. Download directly from youtube-dl and remove the music-dl dependency.
+2. Prevent remixes from downloading unless the song to be donwloaded is a remix.
+3. Improve error handling.

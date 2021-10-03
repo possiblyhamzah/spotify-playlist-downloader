@@ -49,7 +49,7 @@ def find_best_video(song, artist):
             titles.append(title)
 
     if not searches:
-        return None
+        return {}
 
     return {"url": searches[0], "title": titles[0]}
 
@@ -163,7 +163,7 @@ def download(url, client_id, client_secret, working_dir, folder_name, genre):
         video = find_best_video(song, artist)
 
         # If we're unable to find a good match, move on to the next song.
-        if not video["url"]:
+        if "url" not in video:
             print('Unable to download song')
             continue
 

@@ -3,4 +3,9 @@ spotipy
 requests
 eyed3
 mutagen
-music-dl
+clipboard
+colorama
+pathlib
+python-magic
+tldextract
+youtube-dl
